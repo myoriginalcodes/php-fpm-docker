@@ -12,10 +12,10 @@ services:
       working_dir: /application
       tty: true
       volumes:
-          - './samples:/application'
-          - './docker/conf/php.ini:/usr/local/etc/php/conf.d/99-overrides.ini'
-          - './docker/conf/fpm.conf:/usr/local/etc/php-fpm.d/zzz-fpm.conf'
-          - './storage/logs:/var/log/php'
+          - '${PHP_APPLICATION_VOLUME}:/application'
+          - '${PHP_INI_FILE}:/usr/local/etc/php/conf.d/99-overrides.ini'
+          - '${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/zzz-fpm.conf'
+          - '${PHP_LOGS_VOLUME}:/var/log/php'
       networks:
             - bundle
 
