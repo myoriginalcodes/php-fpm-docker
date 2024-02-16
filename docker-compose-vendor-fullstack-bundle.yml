@@ -1,0 +1,25 @@
+###############################################################################
+#                          Docker Environment                                 #
+###############################################################################
+version: '3.9'
+
+services:
+
+  php-fpm:
+      container_name: ${PHP_SERVER_NAME}
+      build: ./docker
+      restart: unless-stopped
+      working_dir: /application
+      tty: true
+      volumes:
+          - '${PHP_APPLICATION_VENDOR_FULLSTACK_VOLUME}:/application'
+          - '${PHP_INI_FILE}:/usr/local/etc/php/conf.d/99-overrides.ini'
+          - '${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/zzz-fpm.conf'
+          - '${PHP_LOGS_VENDOR_FULLSTACK_VOLUME}:/var/log/php'
+      networks:
+            - bundle
+
+networks:
+    bundle:
+      external: true
+      name: ${PHP_NETWORK}
